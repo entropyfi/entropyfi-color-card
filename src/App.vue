@@ -44,14 +44,68 @@ export default {
 		return {
 			color: [
 				{
-					title: 'title',
+					title: '主题色',
 					colorBlock: [
 						{
-							type: 'type title',
-							tips: 'tips',
-							color: '#34cffe',
-							other1: '#fdfdfd',
-							other2: '#333'
+							type: 'Primary1',
+							tips: '可调于主要元素',
+							color: '#27b1aa',
+							other1: 'rgb(212, 239, 238)',
+							other2: 'rgb(233, 247, 247)'
+						},
+						{
+							type: 'Primary2',
+							tips: '同左，备选方案',
+							color: '#32c6b7',
+							other1: 'rgb(214, 244, 241)',
+							other2: 'rgb(235, 249, 248)'
+						},
+						{
+							type: 'Background',
+							tips: '背景底色',
+							color: '#141416',
+							other1: 'rgb(208, 208, 208)',
+							other2: 'rgb(232, 232, 232)'
+						},
+						{
+							type: 'Regular Bg',
+							tips: '常规背景色',
+							color: '#23262f',
+							other1: 'rgb(211, 212, 213)',
+							other2: 'rgb(233, 233, 234)'
+						},
+						{
+							type: 'Secondary Bg',
+							tips: '次要背景色',
+							color: '#353945',
+							other1: 'rgb(215, 215, 218)',
+							other2: 'rgb(235, 235, 236)'
+						}
+					]
+				},
+				{
+					title: '文本色',
+					colorBlock: [
+						{
+							type: 'Primary Text',
+							tips: '基本字色，仅白底时',
+							color: '#303133',
+							other1: 'rgb(214, 214, 214)',
+							other2: 'rgb(234, 234, 235)'
+						},
+						{
+							type: 'Primary Text2',
+							tips: '基本字色，仅深色时',
+							color: '#F6FCFC',
+							other1: 'rgb(253, 254, 254)',
+							other2: 'rgb(254, 255, 255)'
+						},
+						{
+							type: 'Regular Text',
+							tips: '仅白底可用',
+							color: '#606266',
+							other1: 'rgb(223, 224, 224)',
+							other2: 'rgb(239, 239, 240)'
 						}
 					]
 				}
