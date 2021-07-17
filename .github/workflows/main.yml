@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+    
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+          
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+        
+      - uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
+          
+      - name: Install depends
+        run: yarn install
+        
+      - name: Build dist
+        run: yarn build
+        
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist/
+          
+  publish:
+        name: 'Publish to Github Pages'
+        runs-on: ubuntu-latest
+        needs: [build]
+        
+        steps:
+          - uses: actions/checkout@v2
+            
+          - name: Download artifact
+            uses: actions/download-artifact@v2
+            with:
+              name: dist
+              path: dist/
+              
+          - name: Deploy to GitHub Pages
+            uses: crazy-max/ghaction-github-pages@v2.2.0
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            with:
+              build_dir: dist/
+              jekyll: false
+              allow_empty_commit: false
+              commit_message: ":rocket: Deploy GitHub Pages"
+              fqdn: entropyfi-color-card.lf112.net
